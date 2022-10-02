@@ -15,4 +15,3 @@ The frontend.py deals with the data acquisition task. In this, we have 3 points 
 2) The Possible transformer locations, i.e. street points of osm (Latitute and Longitute matrix)
 3) Possible connections between the transformers. (Adjacency Matrix)
 
-Now, after data acquisition, we will move to algorithm 1, which will deal with MV line routing, for this, we will choose optimal trasformer location out of the possible locations (street points) using K-Mediods, then we will route it using Modified Prim.
