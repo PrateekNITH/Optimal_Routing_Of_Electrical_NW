@@ -181,10 +181,7 @@ for x in oh.i:
 
 # print(resi_lat)
 # print(resi_lon)
-for x in oh.streets:
-    print(x, oh.streets[x])
 
-print(oh.cand_loc)
 
 # Highway graph building
 # oh.streets -> hash_map: (id): (lat, lon)
@@ -204,13 +201,16 @@ for lists in oh.cand_loc:
         mat[a][b] = 1
         mat[b][a] = 1
 
-for x in mat:
-    print(x)
 
 cand_latlon = list(oh.streets[i] for i in tmpmap)
-print(cand_latlon)
+
 
 
 # cand_latlon = possible transformer location latitute and longitude - list of tuples
 # mat = adjacency matrix - int[][]
 # resi_lat, resi_lon = residential latitude and longitude - lists
+if __name__ == "__main__":
+    print(cand_latlon)
+    for x in oh.streets:
+        print(x, oh.streets[x])
+    print(oh.cand_loc)
