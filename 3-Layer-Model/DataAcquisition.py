@@ -156,7 +156,7 @@ class OSMHandler(osm.SimpleHandler):
 
 
 oh = OSMHandler()
-oh.apply_file("Assets/chamba.osm")
+oh.apply_file("../Assets/chamba.osm")
 
 node_colnames = ['id', 'latitude', 'longitude']
 df_node = pd.DataFrame(oh.node_data, columns = node_colnames)
@@ -210,7 +210,16 @@ cand_latlon = list(oh.streets[i] for i in tmpmap)
 # mat = adjacency matrix - int[][]
 # resi_lat, resi_lon = residential latitude and longitude - lists
 if __name__ == "__main__":
+    print("Residential Lats: ")
+    print(resi_lat)
+    print("Residential Longs: ")
+    print(resi_lon)
+    print("Candidate Data: ")
     print(cand_latlon)
-    for x in oh.streets:
-        print(x, oh.streets[x])
-    print(oh.cand_loc)
+    # print("Streets Data: ")
+    # for x in oh.streets:
+    #     print(x, oh.streets[x])
+    # print("Street connections in form of list")
+    # print(oh.cand_loc)
+    print("Adjacency Matrix: ")
+    print(mat)
