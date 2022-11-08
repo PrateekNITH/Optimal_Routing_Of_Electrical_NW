@@ -1,5 +1,6 @@
 from helpers import *
 from DataAcquisition import *
+from layer1 import *
 from scipy.sparse import csr_matrix
 from scipy.sparse.csgraph import minimum_spanning_tree
 INF = 99999999
@@ -11,6 +12,18 @@ INF = 99999999
 
 # p, distN, X, Y, Cap, R
 # TO get from frontend
+N = len(resi_lat)
+print("N: ", N)
+M = len(optTrans.cluster_centers_)
+S = 1
+P=N+M
+X=resi_lon
+Y=resi_lat
+t_lon = list(optTrans.cluster_centers_[:,1])
+
+t_lat = list(optTrans.cluster_centers_[:,0])
+X.extend(t_lon)
+Y.extend(t_lat)
 
 # Step 2
 # dist -> 2D array
@@ -31,14 +44,10 @@ for i in range(N+M):
             dist[i][j] = 0
             G[i][j] = 0
 
-for i in range(N+M, P):
-     for j in range(P):
-          G[i][j] = INF
-          G[j][i] = INF
+
 
 # for i in range(P):
 #      print(G[i])
-
 # Step 3
 # t = haversine(77.2878, 28.4452, 77.3092, 28.4270)
 # print(t)
@@ -47,15 +56,16 @@ for i in range(N+M, P):
 #      [5, 5, 0, 1, 6],
 #      [INF, 9, 1, 0, 1],
 #      [INF, 2, 6, 1, 0]]
-graph = Graph(P)
+# graph = Graph(P)
 # graph.add_edge(1,2,5)
 # graph.add_edge(2,3,5)
 # graph.add_edge(3,4,4)
 # graph.add_edge(0,4,5)
 # graph.add_edge(3,2,5)
 # graph.add_edge(1,4,5)
-graph.edges = G
+# graph.edges = G
 min_dist_list = []
+
 # ####################################### Apply Dijkstra ##############################################################
 # pred = dijkstra(G, P)
 # P-> total number of subscribers including N, M and S
@@ -72,13 +82,11 @@ for i in range(N):
                minidx = j
      minidx_lst.append(minidx)
 
-#      min_dist_list.append(d)
+     min_dist_list.append(d)
 
 # print(min_dist_list)     # min_dist_list is the dictionary of every customer's djikstra output
 print(minidx_lst)
-minidx_lst[2] = 11
-minidx_lst[3] = 12
-minidx_lst[4] = 12
+
 # g = Graph(5)
 # g.edges = Gr
 # ##################################### MINIMUM SPANNING TREE #########################################################
@@ -116,7 +124,7 @@ for i in range(N, N+M):
             if j<k and lis[j][k]<INF and lis[j][k]>0:
                 cost += lis[j][k]
 print("Amount of LV Connection: ")
-print(cost, "KM")
+print(cost, "M")
 
 # for Trans = 1 : N do
 #   X = [Xnp(Pred)XTrans];

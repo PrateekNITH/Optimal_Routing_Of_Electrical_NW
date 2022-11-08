@@ -1,6 +1,7 @@
 from math import radians, cos, sin, asin, sqrt
 from queue import PriorityQueue
 INF = 9999999
+R=INF # Range of LV lines
 
 def haversine(lon1, lat1, lon2, lat2):
     """
@@ -16,7 +17,7 @@ def haversine(lon1, lat1, lon2, lat2):
     a = sin(dlat/2)**2 + cos(lat1) * cos(lat2) * sin(dlon/2)**2
     c = 2 * asin(sqrt(a)) 
     r = 6371  # Radius of earth in kilometers. Use 3956 for miles. Determines return value units.
-    return c * r  # Returns in KM
+    return c * r*1000  # Returns in M
 class Graph:
     def __init__(self, num_of_vertices):
         self.v = num_of_vertices
