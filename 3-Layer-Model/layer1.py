@@ -8,8 +8,9 @@ from layer2 import *
 # print(optTrans.cluster_centers_)
 connectionPercentage=0
 nmax = len(cand_latlon)
+print("Cand loc size",nmax)
 n=1
-while connectionPercentage<99 and n < nmax:
+while connectionPercentage<100 and n < nmax:
     optTrans = KMedoids(n_clusters=n).fit(cand_latlon)
     # print(optTrans.cluster_centers_)
     connectionPercentage = secondlayer(optTrans, resi_lat, resi_lon)
