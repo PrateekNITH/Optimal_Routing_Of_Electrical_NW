@@ -38,18 +38,18 @@ class OSMHandler(osm.SimpleHandler):
             
     def node(self, n):
         self.node_data.append((n.id, n.location.lat, n.location.lon))
-        self.tag_inventory(n, "node")
+        # self.tag_inventory(n, "node")
 
     def way(self, w):
         self.tag_inventory(w, "way")
         # print(w.nd)
 
-    def relation(self, r):
-        self.tag_inventory(r, "relation")
+    # def relation(self, r):
+    #     self.tag_inventory(r, "relation")
 
 
 oh = OSMHandler()
-oh.apply_file("../Assets/chamba.osm")
+oh.apply_file("../Assets/map.osm")
 
 node_colnames = ['id', 'latitude', 'longitude']
 df_node = pd.DataFrame(oh.node_data, columns = node_colnames)

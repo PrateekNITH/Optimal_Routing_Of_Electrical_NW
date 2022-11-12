@@ -75,7 +75,7 @@ def secondlayer(optTrans, resi_lat, resi_lon):
     con = [0 for x in range(P)]
     # ######################################### Optimal Routing LV Grid ##################################################
     for i in range(N, N+M):
-        print("\n",i,"\n")
+        # print("\n",i,"\n")
         temporary = [[0 for x in range(P)] for y in range(P)]
         for j in range(P):
             for k in range(P):
@@ -114,7 +114,7 @@ def secondlayer(optTrans, resi_lat, resi_lon):
     print("Amount of LV Connection: ")
     print(cost, "M")
     # ############################# Calculate connection percentage and return it #############
-    print(con)
+    # print(con)
     cp = connectedNodes*100/N
     return cp
 
