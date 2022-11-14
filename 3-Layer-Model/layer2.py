@@ -64,7 +64,7 @@ def secondlayer(optTrans, resi_lat, resi_lon):
 
     for i in range(N):
         for j in range(N,N+M):
-            if(d_res[j-N].get(i)<mdst_lst[i] and d_res[j-N].get(i)<R):
+            if(d_res[j-N].get(i)<mdst_lst[i] and d_res[j-N].get(i)<R): # New condititon to avoid errors
                 minidx_lst[i] = j
                 mdst_lst[i] = d_res[j-N].get(i)
 
