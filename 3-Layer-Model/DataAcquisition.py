@@ -49,7 +49,7 @@ class OSMHandler(osm.SimpleHandler):
 
 
 oh = OSMHandler()
-oh.apply_file("../Assets/map.osm")
+oh.apply_file("../Assets/sample.osm")
 
 node_colnames = ['id', 'latitude', 'longitude']
 df_node = pd.DataFrame(oh.node_data, columns = node_colnames)

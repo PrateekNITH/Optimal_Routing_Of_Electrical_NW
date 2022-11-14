@@ -50,20 +50,22 @@ def secondlayer(optTrans, resi_lat, resi_lon):
     # ####################################### Apply Dijkstra ##############################################################
     # pred = dijkstra(G, P)
     # P-> total number of subscribers including N, M and S
-    minidx_lst = []
-    for i in range(N):
-        mini = INF
-        minidx = 0
+    
+    #Improving time complexity of mindist finding
+    minidx_lst = [0 for x in range(N)]
+    mdst_lst = [INF for x in range(N)]
+    d_res = []
+    for i in range(N,N+M):
         temp = Graph(P)
         temp.edges = G
         d = dijkstra(temp, i)
-        for j in range(N,N+M):
-            if d.get(j)<mini:
-                mini = d.get(j)
-                minidx = j
-        minidx_lst.append(minidx)
+        d_res.append(d)
 
-        min_dist_list.append(d)
+    for i in range(N):
+        for j in range(N,N+M):
+            if(d_res[j-N].get(i)<mdst_lst[i]):
+                minidx_lst[i] = j
+                mdst_lst[i] = d_res[j-N].get(i)
 
     # print(min_dist_list)     # min_dist_list is the dictionary of every customer's djikstra output
     print(minidx_lst)
