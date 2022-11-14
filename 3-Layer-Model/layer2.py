@@ -118,7 +118,10 @@ def secondlayer(optTrans, resi_lat, resi_lon):
     print(cost, "M")
     # ############################# Calculate connection percentage and return it #############
     # print(con)
-    cp = connectedNodes*100/N
-    return cp
+    rval = []
+    for i in range(N):
+        rval.append(con[i])
+    cp = connectedNodes
+    return cp, rval
 
 
