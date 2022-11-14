@@ -49,6 +49,7 @@ class OSMHandler(osm.SimpleHandler):
 
 
 oh = OSMHandler()
+
 oh.apply_file("../Assets/chamba.osm")
 
 node_colnames = ['id', 'latitude', 'longitude']
