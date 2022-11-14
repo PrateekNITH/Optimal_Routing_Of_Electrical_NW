@@ -1,7 +1,7 @@
 from math import radians, cos, sin, asin, sqrt
 from queue import PriorityQueue
 INF = 9999999
-R=60 # Range of LV lines
+R=80 # Range of LV lines
 
 def haversine(lon1, lat1, lon2, lat2):
     """

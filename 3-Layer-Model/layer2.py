@@ -48,7 +48,7 @@ def secondlayer(optTrans, resi_lat, resi_lon):
 
     min_dist_list = []
 
-    # ####################################### Apply Dijkstra ##############################################################
+    # ####################################### Apply Dijkstra #############################################################
     # pred = dijkstra(G, P)
     # P-> total number of subscribers including N, M and S
 

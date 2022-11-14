@@ -81,5 +81,6 @@ else:
         print("Connection Percentage = ", connectionPercentage)
     print("Maximum Possible Connection Percentage Reached...")
     dhruvCode()
-    #for loop
+    if connectionPercentage<100:
+        print("Try increasing the range constraint of LV connection...")
 

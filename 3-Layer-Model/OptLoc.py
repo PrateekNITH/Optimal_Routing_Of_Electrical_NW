@@ -17,6 +17,7 @@ def findNearest(curr_clusters, k):
     for i in range(k):
         tmp = inf
         for j in range(len(cand_latlon)):
+            # ########################################### IMP TO DISCUSS...
             dis = haversine(cand_latlon[j][1], cand_latlon[j][0], curr_clusters[i][1], curr_clusters[i][0]) # ERROR SUSPECTED, TO BE DISCUSSED
             if (dis < tmp):
                 tmp = dis
