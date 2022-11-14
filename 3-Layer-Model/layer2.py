@@ -13,15 +13,16 @@ INF = 99999999
 def secondlayer(optTrans, resi_lat, resi_lon):
     N = len(resi_lat)
     print("N: ", N)
-    M = len(optTrans.cluster_centers_)
+    M = len(optTrans[1])
     S = 1
     P=N+M
     X=[]
     Y=[]
     X.extend(resi_lon)
     Y.extend(resi_lat)
-    t_lon = list(optTrans.cluster_centers_[:,1])
-    t_lat = list(optTrans.cluster_centers_[:,0])
+    t_lat, t_lon = optTrans;
+    # t_lon = list(optTrans[:,1])
+    # t_lat = list(optTrans[:,0])
     X.extend(t_lon)
     Y.extend(t_lat)
 
@@ -94,7 +95,7 @@ def secondlayer(optTrans, resi_lat, resi_lon):
         T = minimum_spanning_tree(Gra)
         print(T)
         lis = T.toarray().astype(int)
-        # print('\n')
+        # print('\n')k
         # ################################################### COST CALCULATION AND OUTPUT ################################################
         for j in range(N+M):
             for k in range(N+M):
