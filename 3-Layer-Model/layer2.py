@@ -50,7 +50,7 @@ def secondlayer(optTrans, resi_lat, resi_lon):
     # ####################################### Apply Dijkstra ##############################################################
     # pred = dijkstra(G, P)
     # P-> total number of subscribers including N, M and S
-    
+
     #Improving time complexity of mindist finding
     minidx_lst = [0 for x in range(N)]
     mdst_lst = [INF for x in range(N)]
@@ -63,7 +63,7 @@ def secondlayer(optTrans, resi_lat, resi_lon):
 
     for i in range(N):
         for j in range(N,N+M):
-            if(d_res[j-N].get(i)<mdst_lst[i]):
+            if(d_res[j-N].get(i)<mdst_lst[i] and d_res[j-N].get(i)<R):
                 minidx_lst[i] = j
                 mdst_lst[i] = d_res[j-N].get(i)
 
