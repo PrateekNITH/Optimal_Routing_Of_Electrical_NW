@@ -10,12 +10,15 @@ endLat = tf.get('maxlat')
 startLat = tf.get('minlat')
 endLon = tf.get('maxlon')
 startLon = tf.get('minlon')
+img = cv2.imread("../Assets/Chamba.png")
 # print(startLat, endLat, startLon, endLon)
-
+height = img.shape[0]
+width = img.shape[1]
+print(height, width)
 latcon = interp1d([startLat,endLat],[0,height])
 loncon = interp1d([startLon, endLon], [0, width])
-img = cv2.imread("../Assets/Chamba.png")
 
+# To start plotting according to given data
 
 
 while True:
