@@ -11,31 +11,32 @@ class OSMHandler(osm.SimpleHandler):
         self.cand_loc = []
         # declare dict
         self.streets = dict()
+
     def tag_inventory(self, elem, elem_type):
         # if self.i == 0 and elem_type=="way":
         #     print(dir(elem))
         #     self.i = 1
         for tag in elem.tags:
-            if tag.k=="building" and (tag.v=="yes" or tag.v=="residential"):
+            if tag.k == "building" and (tag.v == "yes" or tag.v == "residential"):
                 nd = []
                 for n in elem.nodes:
                     nd.append(n.ref)
                 self.i.append(nd)
             # Highway
-            if tag.k=="highway":
+            if tag.k == "highway":
                 rd = []
                 # print(elem.nodes)
                 for n in elem.nodes:
                     # append ref in set
                     # set.add()
                     for lis in self.node_data:
-                        if lis[0]==n.ref:
+                        if lis[0] == n.ref:
                             lat = lis[1]
                             lon = lis[2]
                             self.streets[n.ref] = (lat, lon)
                     rd.append(n.ref)
                 self.cand_loc.append(rd)
-            
+
     def node(self, n):
         self.node_data.append((n.id, n.location.lat, n.location.lon))
         # self.tag_inventory(n, "node")
@@ -52,8 +53,8 @@ oh = OSMHandler()
 
 oh.apply_file("../Assets/chamba.osm")
 
-node_colnames = ['id', 'latitude', 'longitude']
-df_node = pd.DataFrame(oh.node_data, columns = node_colnames)
+node_colnames = ["id", "latitude", "longitude"]
+df_node = pd.DataFrame(oh.node_data, columns=node_colnames)
 
 # print(df_node)
 # print(df_osm)
@@ -65,13 +66,13 @@ for x in oh.i:
     idx = 0
     for y in x:
         # print(df_node['latitude'].where(df_node['id']==y).dropna())
-        lat += df_node['latitude'].where(df_node['id']==y).dropna().tolist()[0]
-        lon += df_node['longitude'].where(df_node['id']==y).dropna().tolist()[0]
-        idx = idx+1
-    lat = lat/idx
-    lon = lon/idx
-    resi_lat.append(round(lat,6))
-    resi_lon.append(round(lon,6))
+        lat += df_node["latitude"].where(df_node["id"] == y).dropna().tolist()[0]
+        lon += df_node["longitude"].where(df_node["id"] == y).dropna().tolist()[0]
+        idx = idx + 1
+    lat = lat / idx
+    lon = lon / idx
+    resi_lat.append(round(lat, 6))
+    resi_lon.append(round(lon, 6))
 
 # print(resi_lat)
 # print(resi_lon)
@@ -85,19 +86,18 @@ tmpmap = {}
 cnt = 0
 for i in oh.streets:
     tmpmap[i] = cnt
-    cnt+=1
+    cnt += 1
 
 mat = [[0 for i in range(len(oh.streets))] for j in range(len(oh.streets))]
 
 for lists in oh.cand_loc:
-    for i in range(len(lists)-1):
-        a, b = tmpmap[lists[i]], tmpmap[lists[i+1]]
+    for i in range(len(lists) - 1):
+        a, b = tmpmap[lists[i]], tmpmap[lists[i + 1]]
         mat[a][b] = 1
         mat[b][a] = 1
 
 
 cand_latlon = list(oh.streets[i] for i in tmpmap)
-
 
 
 # cand_latlon = possible transformer location latitute and longitude - list of tuples
