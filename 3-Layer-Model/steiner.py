@@ -1,10 +1,11 @@
 import networkx as nx
 
-# from networkx import steiner_tree
+from networkx.algorithms.approximation.steinertree import steiner_tree
 import sys
 from DataAcquisition import mat, cand_latlon
 import numpy as np
 from helpers import haversine
+import matplotlib.pyplot as plt
 
 # temp = nx.Graph()
 def modified_prim(nodemat):
@@ -33,7 +34,7 @@ def modified_prim(nodemat):
     # print(B.todense())
     # print(list(temp.edges))
     G = nx.Graph()
-    G = nx.steiner_tree(temp, nodemat)
+    G = steiner_tree(temp, nodemat)
     print(list(temp.edges))
     plt.figure()
     nx.draw_networkx(G)
@@ -41,4 +42,4 @@ def modified_prim(nodemat):
 
 
 if __name__ == "__main__":
-    steiner([0])
+    modified_prim([0])

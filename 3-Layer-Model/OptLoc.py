@@ -17,13 +17,11 @@ def findNearest(curr_clusters, k):
     for i in range(k):
         tmp = inf
         for j in range(len(cand_latlon)):
-            # ########################################### IMP TO DISCUSS...
-            dis = haversine(cand_latlon[j][1], cand_latlon[j][0], curr_clusters[i][1], curr_clusters[i][0]) # ERROR SUSPECTED, TO BE DISCUSSED
+            dis = haversine(cand_latlon[j][0], cand_latlon[j][1], curr_clusters[i][0], curr_clusters[i][1])
             if (dis < tmp):
                 tmp = dis
                 req[i] = cand_latlon[j]
     return req
-87
 
 # Define k for the number of transformers we want, get random sample from cand_lat_lon
 # In[144]:
