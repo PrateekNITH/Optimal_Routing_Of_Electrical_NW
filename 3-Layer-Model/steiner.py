@@ -35,7 +35,7 @@ def modified_prim(nodemat):
     # print(list(temp.edges))
     G = nx.Graph()
     G = steiner_tree(temp, nodemat)
-    print(list(temp.edges))
+    # print(list(temp.edges))
     plt.figure()
     nx.draw_networkx(G)
     plt.show()
