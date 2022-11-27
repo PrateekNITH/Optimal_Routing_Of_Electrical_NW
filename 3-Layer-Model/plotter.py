@@ -1,9 +1,11 @@
 import cv2
 import numpy as np
+import networkx as nx
 from scipy.interpolate import interp1d
 from bs4 import BeautifulSoup
 from DataAcquisition import resi_lat, resi_lon, cand_latlon
 from helpers import INF
+
 
 with open('../Assets/chamba.osm', 'r') as f:
     data = f.read()
@@ -29,7 +31,7 @@ def plotting(active_nodes, connections, lvconnections):
     '''
         Plotting: everything
     '''
-    print(active_nodes)
+    # print(active_nodes)
     # converting lat and lon in pixel values
     global img, drawColor, brushThickness, N
     a = latcon(resi_lat)
@@ -44,7 +46,7 @@ def plotting(active_nodes, connections, lvconnections):
         x1 = int(a[i])
         y1 = int(b[i])
         # print(x1,y1, a[i], b[i])
-        cv2.circle(img, (y1, x1), brushThickness//2, drawColor, cv2.FILLED)
+        cv2.circle(img, (y1, x1), brushThickness, drawColor, cv2.FILLED)
     drawColor = (100, 0, 0)
     # LV Connections
     for i in range(N):
@@ -62,8 +64,25 @@ def plotting(active_nodes, connections, lvconnections):
                     x2 = int(c[active_nodes[j-N]])
                     y2 = int(d[active_nodes[j-N]])
                     cv2.line(img, (y2, x2), (y1, x1), drawColor, brushThickness)
-
-
+    # plotting transformer locations
+    drawColor = (0, 0, 255)
+    for n in active_nodes:
+        x1 = int(c[n])
+        y1 = int(d[n])
+        cv2.circle(img, (y1, x1), brushThickness*2, drawColor, cv2.FILLED)
+    # plotting transformer connections
+    drawColor = (0, 0, 100)
+    B = list(connections.edges())
+    # print(B)
+    # blen = len(B)
+    for edge in B:
+        i = edge[0]
+        j = edge[1]
+        x1 = int(c[i])
+        x2 = int(c[j])
+        y1 = int(d[i])
+        y2 = int(d[j])
+        cv2.line(img, (y2, x2), (y1, x1), drawColor, brushThickness)
 
     img = cv2.flip(img, 0)
     while True:
