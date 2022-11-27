@@ -30,6 +30,7 @@ def secondlayer(optTrans, resi_lat, resi_lon):
     # dist -> 2D array
     dist = [[0 for x in range(P)] for y in range(P)]
     G = [[0 for x in range(P)] for y in range(P)]
+    finalresult = [[0 for x in range(P)] for y in range(P)]
     # ############################## Make G (P X P connectivity matrix) ###################################################
     for i in range(N+M):
         for j in range(N+M):
@@ -103,6 +104,8 @@ def secondlayer(optTrans, resi_lat, resi_lon):
             for k in range(N+M):
                 if lis[j][k]<INF and lis[j][k]>0:
                     cost += lis[j][k]
+                    finalresult[j][k] = 1
+                    finalresult[k][j] = 1
            
         for j in range(N+M):
             for k in range(N+M):
@@ -122,6 +125,6 @@ def secondlayer(optTrans, resi_lat, resi_lon):
     for i in range(N):
         rval.append(con[i])
     cp = connectedNodes
-    return cp, rval, lis
+    return cp, rval, finalresult
 
 

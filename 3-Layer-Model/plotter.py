@@ -29,11 +29,13 @@ def plotting(active_nodes, connections, lvconnections):
     '''
         Plotting: everything
     '''
+    print(active_nodes)
     # converting lat and lon in pixel values
     global img, drawColor, brushThickness, N
     a = latcon(resi_lat)
     b = loncon(resi_lon)
     t_lat, t_lon = zip(*cand_latlon)
+    # print(t_lat)
     c = latcon(t_lat)
     d = loncon(t_lon)
     M = len(active_nodes)
@@ -46,6 +48,7 @@ def plotting(active_nodes, connections, lvconnections):
     drawColor = (100, 0, 0)
     # LV Connections
     for i in range(N):
+        # print(lvconnections[i])
         for j in range(i, N+M):
             if lvconnections[i][j]<INF and lvconnections[i][j]>0:
                 # plot between i and j
@@ -56,9 +59,8 @@ def plotting(active_nodes, connections, lvconnections):
                     y2 = int(b[j])
                     cv2.line(img, (y2, x2), (y1, x1), drawColor, brushThickness)
                 else:
-                    print("Reached Else")
-                    x2 = int(t_lat[active_nodes[j]])
-                    y2 = int(t_lon[active_nodes[j]])
+                    x2 = int(c[active_nodes[j-N]])
+                    y2 = int(d[active_nodes[j-N]])
                     cv2.line(img, (y2, x2), (y1, x1), drawColor, brushThickness)
 
 
