@@ -122,6 +122,6 @@ def secondlayer(optTrans, resi_lat, resi_lon):
     for i in range(N):
         rval.append(con[i])
     cp = connectedNodes
-    return cp, rval
+    return cp, rval, lis
 
 

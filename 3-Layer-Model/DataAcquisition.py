@@ -1,7 +1,19 @@
 import osmium as osm
 import pandas as pd
-
+from bs4 import BeautifulSoup
 ####################### AKSHAT #####################################
+
+with open('../Assets/chamba.osm', 'r') as f:
+    data = f.read()
+bso = BeautifulSoup(data, "xml")
+tf = bso.find('bounds')
+# found starting and ending locations
+endLat = float(tf.get('maxlat'))
+startLat = float(tf.get('minlat'))
+endLon = float(tf.get('maxlon'))
+startLon = float(tf.get('minlon'))
+
+
 class OSMHandler(osm.SimpleHandler):
     def __init__(self):
         osm.SimpleHandler.__init__(self)
@@ -33,8 +45,10 @@ class OSMHandler(osm.SimpleHandler):
                         if lis[0] == n.ref:
                             lat = lis[1]
                             lon = lis[2]
-                            self.streets[n.ref] = (lat, lon)
-                    rd.append(n.ref)
+                            if lat>startLat and lat<endLat and lon>startLon and lon<endLon:
+                                self.streets[n.ref] = (lat, lon)
+                    if lat>startLat and lat<endLat and lon>startLon and lon<endLon:
+                        rd.append(n.ref)
                 self.cand_loc.append(rd)
 
     def node(self, n):
@@ -91,10 +105,11 @@ for i in oh.streets:
 mat = [[0 for i in range(len(oh.streets))] for j in range(len(oh.streets))]
 
 for lists in oh.cand_loc:
-    for i in range(len(lists) - 1):
-        a, b = tmpmap[lists[i]], tmpmap[lists[i + 1]]
-        mat[a][b] = 1
-        mat[b][a] = 1
+    if(len(lists)>0):
+        for i in range(len(lists) - 1):
+            a, b = tmpmap[lists[i]], tmpmap[lists[i + 1]]
+            mat[a][b] = 1
+            mat[b][a] = 1
 
 
 cand_latlon = list(oh.streets[i] for i in tmpmap)
