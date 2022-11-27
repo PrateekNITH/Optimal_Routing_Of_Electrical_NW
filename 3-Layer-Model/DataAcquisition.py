@@ -29,7 +29,7 @@ class OSMHandler(osm.SimpleHandler):
         #     print(dir(elem))
         #     self.i = 1
         for tag in elem.tags:
-            if tag.k == "building" and (tag.v == "yes" or tag.v == "residential"):
+            if tag.k == "building" and (tag.v == "yes" or tag.v == "residential" or tag.v == "commercial"):
                 nd = []
                 for n in elem.nodes:
                     nd.append(n.ref)

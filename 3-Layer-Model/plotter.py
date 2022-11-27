@@ -6,7 +6,6 @@ from bs4 import BeautifulSoup
 from DataAcquisition import resi_lat, resi_lon, cand_latlon
 from helpers import INF
 
-
 with open('../Assets/chamba.osm', 'r') as f:
     data = f.read()
 bso = BeautifulSoup(data, "xml")
@@ -22,7 +21,7 @@ print(height, width)
 latcon = interp1d([startLat,endLat],[0,height])
 loncon = interp1d([startLon, endLon], [0, width])
 img = cv2.flip(img, 0)
-drawColor = (255,0,0)
+drawColor = (0,255,0)
 brushThickness = 2
 N = len(resi_lat)
 
@@ -46,7 +45,7 @@ def plotting(active_nodes, connections, lvconnections):
         x1 = int(a[i])
         y1 = int(b[i])
         # print(x1,y1, a[i], b[i])
-        cv2.circle(img, (y1, x1), brushThickness, drawColor, cv2.FILLED)
+        cv2.circle(img, (y1, x1), brushThickness*2, drawColor, cv2.FILLED)
     drawColor = (100, 0, 0)
     # LV Connections
     for i in range(N):

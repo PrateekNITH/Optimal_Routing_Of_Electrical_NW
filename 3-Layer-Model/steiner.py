@@ -7,9 +7,7 @@ import numpy as np
 from helpers import haversine
 import matplotlib.pyplot as plt
 
-# temp = nx.Graph()
 def modified_prim(incomingmat):
-    # nodemat.sort()
     nodemat = []
     nodemat.extend(incomingmat)
     nodemat.sort()
