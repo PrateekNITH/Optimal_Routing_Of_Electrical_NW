@@ -7,9 +7,10 @@ import numpy as np
 from helpers import haversine
 import matplotlib.pyplot as plt
 
-# temp = nx.Graph()
-def modified_prim(nodemat):
-    # nodemat.sort()
+def modified_prim(incomingmat):
+    nodemat = []
+    nodemat.extend(incomingmat)
+    nodemat.sort()
     st_n = len(mat)
     for i in range(st_n):
         for j in range(st_n):
@@ -39,6 +40,7 @@ def modified_prim(nodemat):
     # plt.figure()
     # nx.draw_networkx(G)
     # plt.show()
+    # print(list(G.edges))
     return G
 
 
