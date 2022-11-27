@@ -12,7 +12,7 @@ from plotter import plotting
 # optTrans = KMedoids(n_clusters=6).fit(cand_latlon)
 # print(optTrans.cluster_centers_)
 optTrans = []
-lvconnections = []
+global lvconnections
 connectionPercentage = 0
 nmax = len(cand_latlon)
 print("Cand loc size", nmax)

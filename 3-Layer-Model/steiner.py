@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 
 # temp = nx.Graph()
 def modified_prim(nodemat):
-    nodemat.sort()
+    # nodemat.sort()
     st_n = len(mat)
     for i in range(st_n):
         for j in range(st_n):
