@@ -1,15 +1,18 @@
 import numpy as np
 import math
+import networkx as nx
 from sklearn_extra.cluster import KMedoids
 from DataAcquisition import *
 from layer2 import secondlayer
 from OptLoc import optimalLocationFinder, singleIteration
 from helpers import *
 from steiner import modified_prim
+from plotter import plotting
 
 # optTrans = KMedoids(n_clusters=6).fit(cand_latlon)
 # print(optTrans.cluster_centers_)
 optTrans = []
+lvconnections = []
 connectionPercentage = 0
 nmax = len(cand_latlon)
 print("Cand loc size", nmax)
@@ -22,7 +25,8 @@ while connectionPercentage < 95 and n < nmax:
     optTrans = optimalLocationFinder(n)
     # optTrans = singleIteration(n);
     # print(optTrans.cluster_centers_)
-    conNodes, rval = secondlayer(optTrans, resi_lat, resi_lon)
+    conNodes, rval, lis = secondlayer(optTrans, resi_lat, resi_lon)
+    lvconnections = lis
     connectionPercentage = conNodes * 100 / N
     print("K = ", n)
     print("Connection Percentage = ", connectionPercentage)
@@ -30,7 +34,7 @@ while connectionPercentage < 95 and n < nmax:
     n += 1
 
 
-def dhruvCode(tloc):
+def connectNplot(tloc):
     # print("DHRUV SHOULD ADD HIS CODE")
     active_nodes = []
     # DHRUV SHOULD ADD HIS CODE HERE
@@ -39,7 +43,8 @@ def dhruvCode(tloc):
         for j in range(nmax):
             if t_lat[i] == cand_latlon[j][0] and t_lon[i] == cand_latlon[j][1]:
                 active_nodes.append(j)
-    modified_prim(active_nodes)
+    connections = modified_prim(active_nodes)
+    plotting(active_nodes, connections, lvconnections)
 
 
 def finalsteps(tuner, k):
@@ -50,7 +55,7 @@ def finalsteps(tuner, k):
 
 
 if connectionPercentage == 100:
-    dhruvCode(optTrans)
+    connectNplot(optTrans)
 else:
     print("IMPROVING EFFICIENCY (Fast Mode)...")
 
@@ -89,12 +94,13 @@ else:
         t2 = transloc[1] + extloc[1]
         transloc = t1, t2
         print(transloc)
-        conNodes, rval = secondlayer(transloc, resi_lat, resi_lon)
+        conNodes, rval, lis = secondlayer(transloc, resi_lat, resi_lon)
+        lvconnections = lis
         connectionPercentage = conNodes * 100 / N
         print("K = ", n + k - 1)
         print("Connection Percentage = ", connectionPercentage)
     print("Maximum Possible Connection Percentage Reached...")
-    dhruvCode(transloc)
+    connectNplot(transloc)
     if connectionPercentage < 100:
         print("Try increasing the range constraint of LV connection...")
 
